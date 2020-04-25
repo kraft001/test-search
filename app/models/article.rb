@@ -1,19 +1,19 @@
 class Article < ApplicationRecord
   include PgSearch::Model
 
-  has_and_belongs_to_many :searches
+  has_and_belongs_to_many :searches # rubocop:disable Rails/HasAndBelongsToMany
 
   pg_search_scope(
     :search,
-    against: %i(
+    against: %i[
       title
       author
       summary
       text
-    ),
+    ],
     using: {
       tsearch: {
-        dictionary: "english",
+        dictionary: 'english'
       }
     }
   )

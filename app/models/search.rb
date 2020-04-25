@@ -1,5 +1,6 @@
 class Search < ApplicationRecord
-  has_and_belongs_to_many :articles
+  # has_many through is better if we're going to expand the project
+  has_and_belongs_to_many :articles # rubocop:disable Rails/HasAndBelongsToMany
 
   validates :user, :text, presence: true
 end
