@@ -26,3 +26,9 @@
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# vim files
+*.swp
+*.swo
+
+project_files
