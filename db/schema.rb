@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_103335) do
   create_table "searches", force: :cascade do |t|
     t.string "user"
     t.string "text"
+    t.datetime "finished_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

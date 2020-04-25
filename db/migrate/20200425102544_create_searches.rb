@@ -3,6 +3,7 @@ class CreateSearches < ActiveRecord::Migration[6.0]
     create_table :searches do |t|
       t.string :user
       t.string :text
+      t.datetime :finished_at
 
       t.timestamps
     end
