@@ -25,12 +25,6 @@ gem 'jbuilder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
-# Load environment variables from local .env file
-gem 'dotenv-rails'
-
-# Enumerated model attributes
-gem 'enumerize'
-
 # HAML for email templates
 gem 'haml-rails'
 
