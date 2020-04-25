@@ -25,9 +25,32 @@ gem 'jbuilder'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# Load environment variables from local .env file
+gem 'dotenv-rails'
+
+# Enumerated model attributes
+gem 'enumerize'
+
+# HAML for email templates
+gem 'haml-rails'
+
+# Rails gem for fast jsonapi-compliant APIs
+gem 'jsonapi-rails'
+
+# Use Sidekiq for background jobs
+gem 'sidekiq'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+
+  gem 'pry-rails'
+
+  # Use factories over fixtures for sample data
+  gem 'factory_bot_rails'
+
+  # Fake data generator
+  gem 'faker'
 end
 
 group :development do
@@ -37,6 +60,18 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen'
+
+  # Annotate Rails classes with schema and routes info
+  gem 'annotate'
+
+  # A command line tool to easily handle events on file system modifications
+  gem 'guard'
+
+  # Automatically run your specs (much like autotest)
+  gem 'guard-rspec', require: false
+
+  # Automatically check Ruby code style
+  gem 'guard-rubocop', require: false
 end
 
 group :test do
@@ -45,7 +80,34 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
+
+  # Strategies for cleaning databases in Ruby.
+  gem 'database_cleaner'
+
+  # The RSpec testing framework with Rails integrations
+  gem 'rspec-its'
+
+  # RSpec testing for Rails
+  gem 'rspec-rails'
+
+  # Show failing specs instantly
+  gem 'rspec-instafail'
+
+  # Rspec cops for rubocop
+  gem 'rubocop-rspec'
+
+  # A RuboCop extension focused on enforcing Rails best practices
+  # and coding conventions.
+  gem 'rubocop-rails'
+
+  # Simple Cov for code coverage
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+group :production do
+  # 12 factor for deploy to heroku
+  gem 'rails_12factor'
+end
