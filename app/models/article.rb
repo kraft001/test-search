@@ -1,4 +1,21 @@
 class Article < ApplicationRecord
+  include PgSearch::Model
+
+  pg_search_scope(
+    :search,
+    against: %i(
+      title
+      author
+      summary
+      text
+    ),
+    using: {
+      tsearch: {
+        dictionary: "english",
+      }
+    }
+  )
+
   validates :title, :author, :summary, :text, presence: true
 end
 
