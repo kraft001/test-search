@@ -1,4 +1,6 @@
 class Search < ApplicationRecord
+  has_and_belongs_to_many :articles
+
   validates :user, :text, presence: true
 end
 

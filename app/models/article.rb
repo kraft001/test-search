@@ -1,6 +1,8 @@
 class Article < ApplicationRecord
   include PgSearch::Model
 
+  has_and_belongs_to_many :searches
+
   pg_search_scope(
     :search,
     against: %i(
