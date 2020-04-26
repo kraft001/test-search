@@ -1,8 +1,7 @@
-// we need to import sendMessage from our client/chat.js
-import { searchChannel } from "channels/search_channel";
+import { startSearch } from "channels/search_channel";
 
-function startSearch(input) {
-  searchChannel.start(input.value);
+function submitSearch(input) {
+  startSearch(input.value);
 
   input.focus();
 }
@@ -13,15 +12,18 @@ if (form) {
   const input = form.querySelector(".js-search-box__input");
   const button = form.querySelector(".js-search-box__button");
 
+  const onSearchInput = (event) => {
+    event.preventDefault();
+    submitSearch(input);
+  };
+
   // Search after each change in the input field
-  // input.addEventListener("change", event => {
-  //   event.preventDefault();
-  //   startSearch(input);
-  // });
+  input.addEventListener("keydown", (event) => {
+    // don't prevent the default behaviour
+    submitSearch(input);
+  });
+  input.addEventListener("change", onSearchInput);
 
   // Or by cicking a button
-  button.addEventListener("click", event => {
-    event.preventDefault();
-    startSearch(input);
-  });
+  button.addEventListener("click", onSearchInput);
 }
