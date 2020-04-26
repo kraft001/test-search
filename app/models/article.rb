@@ -13,7 +13,7 @@ class Article < ApplicationRecord
     ],
     using: {
       tsearch: {
-        dictionary: 'english'
+        prefix: true
       }
     }
   )

@@ -4,7 +4,10 @@ class SearchJob < ApplicationJob
   def perform(user_id, search_text)
     found_articles = Article.search(search_text).limit(10)
     # broadcast right away
-    SearchChannel.broadcast_to user_id, found_articles
+    SearchChannel.broadcast_to(
+      user_id,
+      JSONAPI::Serializer.serialize(found_articles, is_collection: true)
+    )
 
     # and then save to the database
     search = Search.create user: user_id, text: search_text

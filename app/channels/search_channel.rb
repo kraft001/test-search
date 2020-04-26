@@ -1,6 +1,6 @@
 class SearchChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "search:#{uuid}"
+    stream_for uuid
   end
 
   def search(data)

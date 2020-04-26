@@ -1,11 +1,12 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create("SearchChannel", {
+export const searchChannel = consumer.subscriptions.create("SearchChannel", {
   received: function(data) {
+    console.log('-------------- Received');
     console.log(data);
   },
 
-  search: function(searchString) {
+  start: function(searchString) {
     this.perform('search', { text: searchString });
   }
 })

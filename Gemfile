@@ -13,8 +13,6 @@ gem 'puma'
 gem 'sass-rails'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 # Use Redis adapter to run Action Cable in production
@@ -29,7 +27,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 gem 'haml-rails'
 
 # Rails gem for fast jsonapi-compliant APIs
-gem 'jsonapi-rails'
+gem 'jsonapi-serializers'
 
 # Use Sidekiq for background jobs
 gem 'sidekiq'
