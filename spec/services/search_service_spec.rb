@@ -55,11 +55,19 @@ RSpec.describe SearchService do
         expect { perform }.to change(Search, :count).from(0).to(1)
       end
 
-      it 'attaches all articles to the search' do
-        perform
+      context 'when inspecting the search attributes' do
+        subject(:search) { Search.last }
 
-        expect(Search.last.article_ids).
-          to match_array articles.map(&:id)
+        before { perform }
+
+        its(:user) { is_expected.to eq user }
+        its(:text) { is_expected.to eq text }
+        its(:partial) { is_expected.to be_falsey }
+
+        it 'attaches all articles to the search' do
+          expect(search.article_ids).
+            to match_array articles.map(&:id)
+        end
       end
     end
 
@@ -68,10 +76,34 @@ RSpec.describe SearchService do
         create :search, user: user, text: text[0..-2], partial: false
       end
 
+      let!(:very_old_search) do
+        create(
+          :search,
+          user: user,
+          text: text[0..-2],
+          partial: false,
+          created_at: 1.minute.ago
+        )
+      end
+      let!(:another_user_search) do
+        create :search, user: user + '1', text: text[0..-2], partial: false
+      end
+      let!(:another_text_search) do
+        create :search, user: user, text: text + '1', partial: false
+      end
+
       before { perform }
 
-      it 'marks the previous search as partial' do
+      it 'marks the correct previous search as partial' do
         expect(previous_search.reload.partial).to be_truthy
+      end
+
+      it 'does not change the flag for other searches' do
+        [
+          very_old_search, another_user_search, another_text_search
+        ].each do |unchanged_search|
+          expect(unchanged_search.reload.partial).to be_falsey
+        end
       end
     end
   end

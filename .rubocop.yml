@@ -74,3 +74,7 @@ Style/ExponentialNotation:
 Metrics/BlockLength:
   ExcludedMethods:
     - describe
+    - context
+
+RSpec/NestedGroups:
+  Max: 5
