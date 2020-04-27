@@ -88,6 +88,9 @@ group :test do
   # Show failing specs instantly
   gem 'rspec-instafail'
 
+  # Provides standardised output on CI servers
+  gem 'rspec_junit_formatter'
+
   # Rspec cops for rubocop
   gem 'rubocop-rspec'
 
