@@ -26,12 +26,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: search-checksum-v1-{{ checksum "Gemfile.lock" }}
+          key: search-checksum-v2-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install Dependencies
           command: bundle install
       - save_cache:
-          key: search-checksum-v1-{{ checksum "Gemfile.lock" }}
+          key: search-checksum-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - 'vendor/bundle'
             - "~/.bundle"
@@ -76,7 +76,7 @@ jobs:
           at: .
 
       - restore_cache:
-          key: search-checksum-v1-{{ checksum "Gemfile.lock" }}
+          key: search-checksum-v2-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install Dependencies
           command: bundle install
