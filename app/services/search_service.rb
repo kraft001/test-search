@@ -9,7 +9,7 @@ class SearchService
   def perform
     # we need this validation here because
     # we run the search before saving it to db
-    return if search_text.blank? || user_id.blank?
+    return false if search_text.blank? || user_id.blank?
 
     # broadcast right away
     broadcast
@@ -17,6 +17,8 @@ class SearchService
     # and then work with the database
     save
     update_partial
+
+    true
   end
 
   protected
@@ -27,6 +29,8 @@ class SearchService
   end
 
   def broadcast
+    return if found_articles.blank?
+
     serialized_articles =
       JSONAPI::Serializer.serialize(found_articles, is_collection: true)
 

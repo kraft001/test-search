@@ -70,3 +70,7 @@ Layout/SpaceAroundMethodCallOperator:
 
 Style/ExponentialNotation:
   Enabled: true
+
+Metrics/BlockLength:
+  ExcludedMethods:
+    - describe

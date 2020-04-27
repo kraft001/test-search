@@ -1,0 +1,9 @@
+# https://stackoverflow.com/questions/51527997/how-to-ensure-background-jobs-run-in-integration-tests
+
+RSpec.configure do |config|
+  # clean out the queue after each spec
+  config.after do
+    ActiveJob::Base.queue_adapter.enqueued_jobs = []
+    ActiveJob::Base.queue_adapter.performed_jobs = []
+  end
+end
