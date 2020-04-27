@@ -9,8 +9,8 @@ class StatsService
 
   def all_data
     {
-      analytics: analytics.last(5).to_h,
-      trends: trends.last(5).to_h
+      analytics: analytics.last(5).reverse.to_h,
+      trends: trends.last(5).reverse.to_h
     }
   end
 
