@@ -1,12 +1,13 @@
 default_environment: &default_environment
   working_directory: ~/search
   docker:
-    - image: circleci/ruby:2.7.1
+    - image: circleci/ruby:2.7.1-node-browsers
       environment:
         DATABASE_URL: postgresql://postgres@localhost/database?sslmode=disable
         REDIS_URL: redis://localhost:6379
         RAILS_ENV: test
         RACK_ENV: test
+        NODE_ENV: test
     - image: circleci/postgres:12-alpine-ram
       environment:
         POSTGRES_USER: postgres
