@@ -1,0 +1,107 @@
+default_environment: &default_environment
+  working_directory: ~/search
+  docker:
+    - image: circleci/ruby:2.7.1
+      environment:
+        DATABASE_URL: postgresql://postgres@localhost/database?sslmode=disable
+        REDIS_URL: redis://localhost:6379
+        RAILS_ENV: test
+        RACK_ENV: test
+    - image: circleci/postgres:12-alpine-ram
+      environment:
+        POSTGRES_USER: postgres
+        POSTGRES_DB: database
+        POSTGRES_PASSWORD: ""
+    - image: circleci/redis:5.0.8
+
+version: 2.1
+
+orbs:
+  heroku: circleci/heroku@1.0.1 # Invoke the Heroku orb
+
+jobs:
+  build:
+    <<: *default_environment
+    parallelism: 4
+    steps:
+      - checkout
+      - restore_cache:
+          key: search-checksum-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install Dependencies
+          command: bundle install
+      - save_cache:
+          key: search-checksum-{{ checksum "Gemfile.lock" }}
+          paths:
+            - 'vendor/bundle'
+            - "~/.bundle"
+            - "/usr/local/bundle"
+      - run:
+          name: Setting Environment
+          command: cp .env.sample .env
+      - run:
+          name: Lint Ruby
+          command: |
+            bundle exec rubocop \
+            `circleci tests glob "app/**/*.rb" "config/**/*.rb" "lib/**/*.rb" "spec/**/*.rb" "Rakefile" "Gemfile" "config.ru" | circleci tests split --split-by=filesize`
+      - run:
+          name: Prepare DB
+          command: rake db:test:prepare
+      - run:
+          name: Run Tests
+          command: |
+            bundle exec rspec --format progress \
+                              --format RspecJunitFormatter \
+                              --out test-reports/rspec.xml \
+                              `circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings`
+      - store_test_results:
+          path: test-reports
+      - run:
+          name: Stash Coverage Results
+          command: |
+            mkdir -p coverage
+            touch coverage/.resultset.json
+            mkdir coverage_results
+            cp coverage/.resultset.json coverage_results/resultset-${CIRCLE_NODE_INDEX}.json
+      - persist_to_workspace:
+          root: .
+          paths:
+            - coverage_results
+  coverage:
+    <<: *default_environment
+    steps:
+      - checkout
+
+      - attach_workspace:
+          at: .
+
+      - restore_cache:
+          key: search-checksum-{{ checksum "Gemfile.lock" }}
+      - run:
+          name: Install Dependencies
+          command: bundle install
+      - run:
+          name: Setting Environment
+          command: cp .env.sample .env
+
+      - run:
+          name: Merge and check coverage
+          command: bundle exec rake simplecov:report_coverage
+
+      - store_artifacts:
+          path: ~/search/coverage
+          destination: coverage
+
+workflows:
+  build_test_deploy:
+    jobs:
+        - build
+        - coverage:
+             requires:
+               - build
+        - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
+             requires:
+               - coverage
+             filters:
+               branches:
+                 only: master
