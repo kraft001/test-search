@@ -1,26 +1,14 @@
-# README
+# Realtime search and Analytics
 
 [![CircleCI](https://circleci.com/gh/kraft001/test-search.svg?style=svg)](https://circleci.com/gh/kraft001/test-search)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Features:
 
-Things you may want to cover:
+* 100% test coverage
+* automatic deployment through CircleCI to Heroku
+* without JQuery (though it can be added easily)
 
-* Ruby version
+Improvement ideas:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* replace HABTM with `many through`
+* add indeces for faster analytics
