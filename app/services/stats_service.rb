@@ -1,8 +1,9 @@
 class StatsService
-  attr_reader :interval, :now
+  attr_reader :interval, :now, :one_interval
 
   def initialize(interval)
     @interval = interval
+    @one_interval = 1.public_send(interval)
     @now = Time.zone.now
   end
 
@@ -13,9 +14,9 @@ class StatsService
     }
   end
 
-  def analytics(start_at = nil, finish_at = nil)
+  def analytics(finish_at = nil)
     finish_at ||= now
-    start_at ||= (finish_at - 1.public_send(interval))
+    start_at = finish_at - one_interval
 
     Search.
       where(
@@ -28,10 +29,7 @@ class StatsService
   end
 
   def trends
-    start_analytics = analytics(
-      now - 2.public_send(interval),
-      now - 1.public_send(interval)
-    ).to_h
+    start_analytics = analytics(now - one_interval).to_h
     finish_analytics = analytics
 
     # calculate the change and then sort

@@ -39,13 +39,14 @@ class SearchService
     @search.articles = found_articles
   end
 
-  def update_partial
-    previous_searches =
-      Search.
+  def previous_searches
+    Search.
       where(partial: false, user: user_id).
       where('created_at >= ?', search.created_at - 3.seconds).
       where('created_at < ?', search.created_at)
+  end
 
+  def update_partial
     previous_searches.each do |previous_search|
       next unless search_text.include?(previous_search.text)
 
