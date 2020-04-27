@@ -1,5 +1,7 @@
 # README
 
+[![CircleCI](https://circleci.com/gh/kraft001/test-search.svg?style=svg)](https://circleci.com/gh/kraft001/test-search)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
