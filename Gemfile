@@ -35,17 +35,17 @@ gem 'sidekiq'
 # Build ActiveRecord named scopes that take advantage of PostgreSQL's full text search
 gem 'pg_search'
 
+# Use factories over fixtures for sample data
+gem 'factory_bot_rails'
+
+# Fake data generator
+gem 'faker'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
 
   gem 'pry-rails'
-
-  # Use factories over fixtures for sample data
-  gem 'factory_bot_rails'
-
-  # Fake data generator
-  gem 'faker'
 end
 
 group :development do
