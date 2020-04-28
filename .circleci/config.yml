@@ -87,7 +87,7 @@ jobs:
           key: bundle-v2-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install Dependencies
-          command: bundle install
+          command: bundle install --path vendor/bundle
       - run:
           name: Setting Environment
           command: cp .env.sample .env
