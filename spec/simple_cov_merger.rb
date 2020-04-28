@@ -1,5 +1,4 @@
 require 'simplecov'
-require_relative './support/initializers/simple_cov_profile'
 
 class SimpleCovMerger
   class << self
