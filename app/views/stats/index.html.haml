@@ -8,14 +8,16 @@
       .interval__header= interval.to_s.upcase
       .interval__content
         .analytics
-          .analytics__header Analytics
+          .analytics__header Top searches
           .analytics__content
             - data[:analytics].each do |text, count|
-              .analytics-item__text= text
-              .analytics-item__count= count
+              .analytics-item
+                .analytics-item__text= text
+                .analytics-item__count= count
         .trends
           .trends__header Trends
           .trends__content
             - data[:trends].each do |text, count|
-              .trends-item__text= text
-              .trends-item__count= count
+              .trends-item
+                .trends-item__text= text
+                .trends-item__count= count

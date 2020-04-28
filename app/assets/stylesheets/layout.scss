@@ -16,16 +16,8 @@
     text-transform: uppercase;
     cursor: pointer;
 
-    &:hover {
-      background-color: #A0A4A8;
-    }
-
     &--active {
       cursor: default;
-
-      &:hover {
-        background-color: white;
-      }
     }
   }
 

@@ -3,8 +3,6 @@ import { updateArticles } from "articles"
 
 const searchChannel = consumer.subscriptions.create("SearchChannel", {
   received: function(data) {
-    console.log('-------------- Received');
-    console.log(data);
     updateArticles(data.data);
   },
 

@@ -1,0 +1,28 @@
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.interval {
+  &__header {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+}
+
+.analytics, .trends {
+  margin-top: 20px;
+
+  &__header {
+    border-bottom: 1px solid black;
+  }
+}
+
+.analytics-item, .trends-item {
+  display: flex;
+  justify-content: space-between;
+
+  &__count {
+    margin-left: 5px;
+  }
+}
