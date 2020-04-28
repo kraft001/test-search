@@ -104,9 +104,9 @@ workflows:
   build_test_deploy:
     jobs:
         - build
-        - coverage:
-             requires:
-               - build
+        # - coverage:
+        #      requires:
+        #        - build
         - heroku/deploy-via-git: # Use the pre-configured job, deploy-via-git
              requires:
                - coverage
