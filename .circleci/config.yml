@@ -27,12 +27,12 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: search-checksum-v3-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
       - run:
-          name: Install Dependencies
+          name: Bindle install gems
           command: bundle install
       - save_cache:
-          key: search-checksum-v3-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
           paths:
             - 'vendor/bundle'
             - "~/.bundle"
@@ -48,6 +48,15 @@ jobs:
       - run:
           name: Prepare DB
           command: rake db:test:prepare
+      - restore_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}
+      - run:
+          name: Yarn install
+          command: yarn install --cache-folder ~/.cache/yarn
+      - save_cache:
+          key: yarn-v1-{{ checksum "yarn.lock" }}
+          paths:
+            - '~/.cache/yarn'
       - run:
           name: Run Tests
           command: |
@@ -77,7 +86,7 @@ jobs:
           at: .
 
       - restore_cache:
-          key: search-checksum-v3-{{ checksum "Gemfile.lock" }}
+          key: bundle-v1-{{ checksum "Gemfile.lock" }}
       - run:
           name: Install Dependencies
           command: bundle install
