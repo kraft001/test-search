@@ -1,6 +1,6 @@
 .menu
-  .menu__item--active Search
-  .menu__item= link_to 'Stats', stats_path
+  .menu__item.menu__item--active Search
+  .menu__item= link_to 'Stats', stats_path, class: 'menu__link'
 
 .search-box.js-search-box
   %input.search-box__input.js-search-box__input{ autofocus: true, placeholder: 'Enter some text' }

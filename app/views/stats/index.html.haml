@@ -1,6 +1,6 @@
 .menu
-  .menu__item= link_to 'Search', search_path
-  .menu__item--active Stats
+  .menu__item= link_to 'Search', search_path, class: 'menu__link'
+  .menu__item.menu__item--active Stats
 
 .stats-container
   - @stats_data.each do |interval, data|

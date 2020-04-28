@@ -1,0 +1,35 @@
+.main {
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 30px;
+  font-size: 20px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+
+  &__item {
+    padding: 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #A0A4A8;
+    }
+
+    &--active {
+      cursor: default;
+
+      &:hover {
+        background-color: white;
+      }
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+  }
+}
